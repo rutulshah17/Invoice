@@ -1,0 +1,21 @@
+<% include ../partials/header.ejs %>
+
+<table class="table table-striped table-hover">
+  <tr>
+    <th>Name Of Client</th>
+    <th>Amount</th>
+    <th>Date From</th>
+    <th>Date To</th>
+  </tr>
+
+    <% for (var i = 0; i < invoices.length; i++) { %>
+      <tr>
+        <td><%= invoices[i].nameOfClient %></td>
+        <td><%= invoices[i].amount %></td>
+        <td><%= invoices[i].dateFrom %></td>
+        <td><%= invoices[i].dateTo %></td>
+      </tr>
+    <% } %>
+</table>
+
+<% include ../partials/footer.ejs %>
