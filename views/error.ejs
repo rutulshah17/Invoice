@@ -1,3 +1,16 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<% include partials/header.ejs %>
+
+<main class="container">
+
+    <h1>We're Sorry</h1>
+
+    <section class="jumbotron">
+        Your request could not be completed.  Please try again.
+        <% if(message.length > 1){ %>
+            <p class="text-danger"><%= message %></p>
+        <% } %>
+    </section>
+
+</main>
+
+<% include partials/footer.ejs %>
