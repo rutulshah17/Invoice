@@ -11,18 +11,12 @@
 
   <title>Invoices</title>
 
-  <!-- Bootstrap Core CSS -->
   <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
   <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
 </head>
 
@@ -30,7 +24,6 @@
 
 <div id="wrapper" class="toggled">
 
-  <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
@@ -39,9 +32,22 @@
         </a>
       </li>
       <li>
-        <a href="/invoices">Invoice</a>
-        <a href="/invoices/add"> Add a Client </a>
+
+        <% if(!user) { %>
+              <a href="/invoices">Invoice</a>
+              <a href="/login">Login</a>
+              <a href="/register">Register</a>
+            </li>
+          </ul>
+          <% } else { %>
+              <span style="color:#999999">Welcome, <%= user.username %></span>
+              <a href="/invoices">Invoice</a>
+              <a href="/invoices/add"> Pay a Client </a>
+              <a href="/logout">Logout</a>
+
+            </ul>
+          <% } %>
+
       </li>
     </ul>
   </div>
-  <!-- /#sidebar-wrapper -->

@@ -2,27 +2,45 @@
 <% include ../partials/modal.ejs %>
 
 
-<table class="table table-striped table-hover">
-    <tr>
-        <th>Name Of Client</th>
-        <th>Amount</th>
-        <th>Date From</th>
-        <th>Date To</th>
-        <th></th>
-        <th></th>
-    </tr>
+<section>
+    <fieldset>
+        <h1 style="text-align:center">Invoice Information</h1>
+        <%if(user) {%>
+        <h3 style="text-align:center">Here's what you got <strong><%=user.username%></strong> !!</h3>
+        <% } %>
+        <br />
+        <table class="table table-responsive table-striped table-hover">
+            <tbody>
+            <tr>
+                <th>Name Of Client</th>
+                <th>Amount</th>
+                <th>Date From</th>
+                <th>Date To</th>
 
-    <% for (var i = 0; i < invoices.length; i++) { %>
-    <tr>
-        <td><%= invoices[i].nameOfClient %></td>
-        <td>$<%= invoices[i].amount %></td>
-        <td><%= dateFrom[i] %></td>
-        <td><%= dateTo[i] %></td>
-        <td><a href="invoices/edit/<%= invoices[i]._id %>" class="btn btn-primary">Edit</a></td>
-        <td><a href="#deleteRecord" data-toggle="modal"
-               data-delete-modal-id=<%= invoices[i].nameOfClient %> data-target="#deleteRecord" class="btn btn-default">Delete</a>
-        </td>
-    </tr>
-    <% } %>
-</table>
+                <% if(user) { %>
+                <th>Actions</th>
+                <% } %>
+            </tr>
+            </tbody>
+            <% for (var i = 0; i < invoices.length; i++) { %>
+            <tr>
+                <td><%= invoices[i].nameOfClient %></td>
+                <td>$<%= invoices[i].amount %></td>
+                <td><%= dateFrom[i] %></td>
+                <td><%= dateTo[i] %></td>
+
+                <% if(user) { %>
+                <td><a href="invoices/<%= invoices[i]._id %>" class="btn btn-primary">Edit</a>
+                    <a href="#deleteRecord" data-toggle="modal"
+                       data-delete-name-id=<%= invoices[i].nameOfClient %>
+                       data-delete-amount-id=<%= invoices[i].amount %>
+                       data-delete-link="/invoices/delete/<%= invoices[i]._id %>"
+                       class="btn btn-default">Delete</a>
+                </td>
+                <% } %>
+            </tr>
+            <% } %>
+        </table>
+    </fieldset>
+</section>
 <% include ../partials/footer.ejs %>
