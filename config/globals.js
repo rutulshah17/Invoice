@@ -11,12 +11,12 @@ module.exports = {
     facebook:{
         clientID: "1745876219057649",
         clientSecret: "482d7b447dbc337f56b20b6426bac658",
-        callbackURL: "http://localhost:3000/facebook"
+        callbackURL: "https://invoicescomp2068.herokuapp.com/facebook"
     },
     twitter:{
         consumerKey: "z9vIYOVpZB3LE7v8ReCVjjPat",
         consumerSecret: "IMfnZIx0iMALk1OL30uheQLizl5FC9HVBdRwYnLmn4NgG5qwLJ",
-        callbackURL: "http://localhost:3000/twitter"
+        callbackURL: "https://invoicescomp2068.herokuapp.com/twitter"
     }
 };
 
