@@ -11,7 +11,7 @@ var invoiceSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: 'amount is required',
-        min: 300
+        min: 100
     },
     dateFrom: {
         type: Date,

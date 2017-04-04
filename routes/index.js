@@ -6,6 +6,7 @@ let passport = require('passport');
 let Account = require('../models/account');
 
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
@@ -53,6 +54,19 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',
     failureMessage: 'Invalid Login'
 }));
+
+router.get('/facebook', passport.authenticate('facebook', {
+    failureRedirect: '/login'
+}), function (req, res) {
+    res.redirect('/invoices');
+});
+
+router.get('/twitter', passport.authenticate('twitter', {
+        failureRedirect: '/login'
+    }), function (req, res) {
+        res.redirect('/invoices');
+    });
+
 
 
 /* GET logout */

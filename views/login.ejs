@@ -1,7 +1,9 @@
 <% include partials/header.ejs %>
 
 <main class="container">
-  <h1>Login</h1>
+  <br />
+  <fieldset>
+    <legend><h1>Login</h1></legend>
 
     <% if (messages.length > 0) { %>
   <div class="alert alert-danger"><%= messages %></div>
@@ -22,11 +24,21 @@
     </div>
 
     <button class="btn btn-primary col-sm-offset-2">Login</button>
+    <a href="/facebook">
+      <img src="/images/facebook.png" />
+    </a>
+    <a href="/twitter">
+      <img src="/images/twitter.jpg" />
+    </a>
+    <div class="col-sm-offset-2">
 
+    </div>
+    <div class="col-sm-offset-2">
+
+    </div>
     <hr />
     Need access?  <a href="/register" title="Register">Register</a>
   </form>
-
+  </fieldset>
 </main>
-
 <% include partials/footer.ejs %>

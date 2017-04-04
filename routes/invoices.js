@@ -2,6 +2,9 @@ let express = require('express');
 let router = express.Router();
 
 let Invoice = require('../models/invoice');
+let globals = require('../config/globals');
+
+var nodemailer = require('nodemailer');
 
 //to get the date in the format yyyy-mm-dd, as this is the format which is supported by html datepicker
 function convertDate(date) {
@@ -14,6 +17,66 @@ function convertDate(date) {
     return dateFrom;
 }
 
+/*function sendEmail(){
+    var email 	= require("/emailjs/email");
+    var server 	= email.server.connect({
+        user:	"rutulshah17@outlook.com",
+        password:"",
+        host:	"smtp-mail.outlook.com",
+        tls: {ciphers: "SSLv3"}
+    });
+
+    // send the message and get a callback with an error or details of the message that was sent
+    server.send({
+        text:    "i hope this works",
+        from:    "Rutul Shah <rutulshah17@gmail.com>",
+        to:      "Preet Brar <preetbrar1796@gmail.com>",
+        subject: "testing emailjs"
+    }, function(err, message) { console.log(err || message); });
+}*/
+
+
+/*
+function sendEmail () {
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: '',
+            pass: ''
+        }
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"Rutul Shah" <rutul.coolest@gmail.com>', // sender address
+        to: 'rutulshah17@gmail.com', // list of receivers
+        subject: 'Hello', // Subject line
+        text: 'Hello world ?', // plain text body
+        html: '<b>Hello world ?</b>' // html body
+    };
+
+    transporter.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+
+        transporter.close();
+    });
+
+}
+*/
+
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next(); // user is logged in
+    }
+
+    res.redirect('/'); // not logged in so redirect to home
+}
 
 router.get('/', function (req, res, next) {
 
@@ -40,32 +103,33 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add', isLoggedIn, function (req, res, next) {
     res.render('Invoices/add', {
         title: 'Invoices',
-        user: req.user
+        user: req.user,
     })
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add',isLoggedIn, function (req, res, next) {
     Invoice.create({
         nameOfClient: req.body.nameOfClient,
         amount: req.body.amount,
         dateFrom: req.body.dateFrom,
         dateTo: req.body.dateTo
-    }, function (err, invoice) {
+    },function (err, invoice) {
         if (err) {
             console.log(err);
             res.render('error');
             return;
         }
+        //sendEmail();
         res.redirect('/invoices');
     });
 });
 
 
 //GET /invoices_id - show edit page and paste it in the selected invoice
-router.get('/:_id', function (req, res, next) {
+router.get('/:_id',isLoggedIn, function (req, res, next) {
     //grab id from url
     var _id = req.params._id;
     //use mongoose to find the selected invoice
@@ -88,7 +152,7 @@ router.get('/:_id', function (req, res, next) {
 
 
 //POST /invoices/_id - save the updated invoice
-router.post('/:_id', function (req, res, next) {
+router.post('/:_id',isLoggedIn, function (req, res, next) {
     //grab id from url
     var _id = req.params._id;
 
@@ -113,7 +177,7 @@ router.post('/:_id', function (req, res, next) {
 
 
 // GET /books/delete/_id - delete and refresh the index view
-router.get('/delete/:_id', function(req, res, next) {
+router.get('/delete/:_id',isLoggedIn, function(req, res, next) {
     // get the id parameter from the end of the url
     let _id = req.params._id;
 
