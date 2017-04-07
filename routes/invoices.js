@@ -140,7 +140,7 @@ router.get('/:_id',isLoggedIn, function (req, res, next) {
             return;
         }
 
-        res.render('invoices/edit', {
+        res.render('Invoices/edit', {
             invoice: invoice,
             dateFrom: convertDate(invoice.dateFrom),
             dateTo: convertDate(invoice.dateTo),
